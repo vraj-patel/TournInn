@@ -1,10 +1,11 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+
+const tournamentRoutes = require('./api/routes/tournaments');
+
 const app = express();
 
-app.use((req, res, next) => {
-    res.status(200).json({
-        message: 'It works!'
-    });
-});
+app.use(bodyParser.json());
+app.use('/tournaments', tournamentRoutes);
 
 module.exports = app;
