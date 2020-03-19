@@ -1,6 +1,8 @@
 class Tournament {
   constructor(tournament) {
     this.id = tournament.id;
+    this.name = tournament.name;
+    this.description = tournament.description;
     this.startTime = tournament.startTime;
     this.endTime = tournament.endTime;
     this.roundRobinDuration = tournament.roundRobinDuration;
