@@ -6,6 +6,7 @@ const userRoutes = require("./api/routes/user");
 const divisionRoutes = require("./api/routes/divisions");
 const gameRoutes = require("./api/routes/games");
 const locationRoutes = require("./api/routes/locations");
+const playerRoutes = require("./api/routes/players");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/user", userRoutes);
 app.use("/divisions", divisionRoutes);
 app.use("/games", gameRoutes);
 app.use("/locations", locationRoutes);
+app.use("/players", playerRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Route Not Found");
