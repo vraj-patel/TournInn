@@ -65,8 +65,21 @@ router.get("/:tournamentId", (req, res, next) => {
 });
 
 router.patch("/:tournamentId", (req, res, next) => {
-  res.status(200).json({
-    message: "PATCHED a tournament"
+  const query =
+    "UPDATE tournaments SET ? where id = " + req.params.tournamentId;
+
+  mysqlConnection.query(query, req.body, (err, result) => {
+    if (err) {
+      console.log("Patching tournament failed.");
+      res.status(500).json({
+        error: err
+      });
+    } else {
+      console.log("Successfully patched tournament.");
+      res.status(200).json({
+        message: "Successfully patched tournament."
+      });
+    }
   });
 });
 
