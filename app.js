@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 
 const tournamentRoutes = require("./api/routes/tournaments");
 const userRoutes = require("./api/routes/user");
+const divisionRoutes = require("./api/routes/divisions");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use("/tournaments", tournamentRoutes);
 app.use("/user", userRoutes);
+app.use("/divisions", divisionRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Route Not Found");
