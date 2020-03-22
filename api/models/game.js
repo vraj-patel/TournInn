@@ -10,6 +10,7 @@ class Game {
     this.team2Id = game.team2Id;
     this.team1Score = game.team1Score;
     this.team2Score = game.team2Score;
+    this.locationId = game.locationId;
   }
 }
 

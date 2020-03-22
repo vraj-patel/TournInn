@@ -29,7 +29,8 @@ router.post("/", (req, res, next) => {
     team1Id: req.body.team1Id,
     team2Id: req.body.team2Id,
     team1Score: req.body.team1Score,
-    team2Score: req.body.team2Score
+    team2Score: req.body.team2Score,
+    locationId: req.body.locationId
   });
   const query = "INSERT INTO games SET ?";
 
