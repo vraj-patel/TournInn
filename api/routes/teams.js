@@ -9,7 +9,7 @@ router.get("/", (req, res, next) => {
     if (err) {
       console.log("Getting all teams failed.");
       res.status(500).json({
-        error: err
+        error: err,
       });
     } else {
       console.log("Successfully received all teams.");
@@ -22,7 +22,7 @@ router.post("/", (req, res, next) => {
   const newTeam = new Team({
     id: null,
     name: req.body.name,
-    divisionId: req.body.divisionId
+    divisionId: req.body.divisionId,
   });
   const query = "INSERT INTO teams SET ?";
 
@@ -30,12 +30,12 @@ router.post("/", (req, res, next) => {
     if (err) {
       console.log("Inserting new team failed.");
       res.status(500).json({
-        error: err
+        error: err,
       });
     } else {
       console.log("Successfully inserted new team.");
       res.status(201).json({
-        message: "Successfully inserted new team."
+        message: "Successfully inserted new team.",
       });
     }
   });
@@ -47,11 +47,26 @@ router.get("/:teamId", (req, res, next) => {
     if (err) {
       console.log("Getting team failed.");
       res.status(500).json({
-        error: err
+        error: err,
       });
     } else {
       console.log("Successfully received team.");
       res.status(200).json(rows[0]);
+    }
+  });
+});
+
+router.get("/:teamId/players", (req, res, next) => {
+  const query = "SELECT * FROM players WHERE teamId = " + req.params.teamId;
+  mysqlConnection.query(query, (err, rows, fields) => {
+    if (err) {
+      console.log("Getting players from team failed.");
+      res.status(500).json({
+        error: err,
+      });
+    } else {
+      console.log("Successfully received players from team.");
+      res.status(200).json(rows);
     }
   });
 });
@@ -63,12 +78,12 @@ router.patch("/:teamId", (req, res, next) => {
     if (err) {
       console.log("Patching team failed.");
       res.status(500).json({
-        error: err
+        error: err,
       });
     } else {
       console.log("Successfully patched team.");
       res.status(200).json({
-        message: "Successfully patched team."
+        message: "Successfully patched team.",
       });
     }
   });
@@ -81,12 +96,12 @@ router.delete("/:teamId", (req, res, next) => {
     if (err) {
       console.log("Deleting team failed.");
       res.status(500).json({
-        error: err
+        error: err,
       });
     } else {
       console.log("Successfully deleted team.");
       res.status(200).json({
-        message: "Successfully deleted tournament."
+        message: "Successfully deleted tournament.",
       });
     }
   });
