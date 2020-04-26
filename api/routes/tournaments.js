@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mysqlConnection = require("../../connection");
 const Tournament = require("../models/tournament");
+const authenticate = require("../middleware/authenticate");
+const authorize = require("../middleware/authorize");
+const Role = require("../models/role");
 
 router.get("/", (req, res, next) => {
   const query = "SELECT * FROM tournaments";
@@ -18,35 +21,40 @@ router.get("/", (req, res, next) => {
   });
 });
 
-router.post("/", (req, res, next) => {
-  const newTournament = new Tournament({
-    id: null,
-    name: req.body.name,
-    description: req.body.description,
-    startTime: req.body.startTime,
-    endTime: req.body.endTime,
-    roundRobinDuration: req.body.roundRobinDuration,
-    playoffDuration: req.body.playoffDuration,
-    quarterFinalDuration: req.body.quarterFinalDuration,
-    semiFinalDuration: req.body.semiFinalDuration,
-    finalDuration: req.body.finalDuration,
-  });
-  const query = "INSERT INTO tournaments SET ?";
+router.post(
+  "/",
+  authenticate,
+  authorize([Role.Admin, Role.Owner]),
+  (req, res, next) => {
+    const newTournament = new Tournament({
+      id: null,
+      name: req.body.name,
+      description: req.body.description,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
+      roundRobinDuration: req.body.roundRobinDuration,
+      playoffDuration: req.body.playoffDuration,
+      quarterFinalDuration: req.body.quarterFinalDuration,
+      semiFinalDuration: req.body.semiFinalDuration,
+      finalDuration: req.body.finalDuration,
+    });
+    const query = "INSERT INTO tournaments SET ?";
 
-  mysqlConnection.query(query, newTournament, (err, result) => {
-    if (err) {
-      console.log("Inserting new tournament failed.");
-      res.status(500).json({
-        error: err,
-      });
-    } else {
-      console.log("Successfully inserted new tournament.");
-      res.status(201).json({
-        message: "Successfully inserted new tournament.",
-      });
-    }
-  });
-});
+    mysqlConnection.query(query, newTournament, (err, result) => {
+      if (err) {
+        console.log("Inserting new tournament failed.");
+        res.status(500).json({
+          error: err,
+        });
+      } else {
+        console.log("Successfully inserted new tournament.");
+        res.status(201).json({
+          message: "Successfully inserted new tournament.",
+        });
+      }
+    });
+  }
+);
 
 router.get("/:tournamentId", (req, res, next) => {
   const query =
@@ -97,41 +105,69 @@ router.get("/:tournamentId/teams", (req, res, next) => {
   });
 });
 
-router.patch("/:tournamentId", (req, res, next) => {
+// for players
+router.get("/:tournamentId/players", (req, res, next) => {
   const query =
-    "UPDATE tournaments SET ? where id = " + req.params.tournamentId;
-
-  mysqlConnection.query(query, req.body, (err, result) => {
-    if (err) {
-      console.log("Patching tournament failed.");
-      res.status(500).json({
-        error: err,
-      });
-    } else {
-      console.log("Successfully patched tournament.");
-      res.status(200).json({
-        message: "Successfully patched tournament.",
-      });
-    }
-  });
-});
-
-router.delete("/:tournamentId", (req, res, next) => {
-  const query = "DELETE FROM tournaments WHERE id = " + req.params.tournamentId;
-
+    "SELECT * FROM divisions WHERE tournamentId = " + req.params.tournamentId;
   mysqlConnection.query(query, (err, rows, fields) => {
     if (err) {
-      console.log("Deleting tournament failed.");
+      console.log("Getting divisions from tournament failed.");
       res.status(500).json({
         error: err,
       });
     } else {
-      console.log("Successfully deleted tournament.");
-      res.status(200).json({
-        message: "Successfully deleted tournament.",
-      });
+      console.log("Successfully received divisions from tournament.");
+      res.status(200).json(rows);
     }
   });
 });
+
+router.patch(
+  "/:tournamentId",
+  authenticate,
+  authorize([Role.Admin, Role.Owner]),
+  (req, res, next) => {
+    const query =
+      "UPDATE tournaments SET ? where id = " + req.params.tournamentId;
+
+    mysqlConnection.query(query, req.body, (err, result) => {
+      if (err) {
+        console.log("Patching tournament failed.");
+        res.status(500).json({
+          error: err,
+        });
+      } else {
+        console.log("Successfully patched tournament.");
+        res.status(200).json({
+          message: "Successfully patched tournament.",
+        });
+      }
+    });
+  }
+);
+
+router.delete(
+  "/:tournamentId",
+  authenticate,
+  authorize([Role.Admin, Role.Owner]),
+  (req, res, next) => {
+    const query =
+      "DELETE FROM tournaments WHERE id = " + req.params.tournamentId;
+
+    mysqlConnection.query(query, (err, rows, fields) => {
+      if (err) {
+        console.log("Deleting tournament failed.");
+        res.status(500).json({
+          error: err,
+        });
+      } else {
+        console.log("Successfully deleted tournament.");
+        res.status(200).json({
+          message: "Successfully deleted tournament.",
+        });
+      }
+    });
+  }
+);
 
 module.exports = router;

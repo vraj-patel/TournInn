@@ -3,6 +3,7 @@ class User {
     this.id = user.id;
     this.email = user.email;
     this.password = user.password;
+    this.role = user.role;
     // access:
     // viewer - not allowed to edit anything, cannot view users
     // tournament admin - edit everything except users
