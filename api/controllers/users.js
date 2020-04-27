@@ -85,7 +85,7 @@ exports.login = (req, res, next) => {
               id: rows[0].id,
               role: rows[0].role,
             },
-            "somekey",
+            process.env.JWT_KEY,
             {
               expiresIn: "1h",
             }
