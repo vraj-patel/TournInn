@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const tournamentRoutes = require("./api/routes/tournaments");
-const userRoutes = require("./api/routes/user");
+const userRoutes = require("./api/routes/users");
 const divisionRoutes = require("./api/routes/divisions");
 const gameRoutes = require("./api/routes/games");
 const locationRoutes = require("./api/routes/locations");
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/tournaments", tournamentRoutes);
-app.use("/user", userRoutes);
+app.use("/users", userRoutes);
 app.use("/divisions", divisionRoutes);
 app.use("/games", gameRoutes);
 app.use("/locations", locationRoutes);
@@ -45,8 +45,8 @@ app.use((error, req, res, next) => {
   res.state = error.status || 500;
   res.json({
     error: {
-      message: error.message
-    }
+      message: error.message,
+    },
   });
 });
 
