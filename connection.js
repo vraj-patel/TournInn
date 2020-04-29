@@ -5,10 +5,10 @@ var mysqlConnection = mysql.createConnection({
   user: "root",
   password: "whatIsLife42?",
   database: "TournInn",
-  multipleStatements: true
+  multipleStatements: true,
 });
 
-mysqlConnection.connect(err => {
+mysqlConnection.connect((err) => {
   if (!err) {
     console.log("Connected");
   } else {
