@@ -10,5 +10,5 @@ model = LogisticRegression().fit(X_train, y_train)
 
 print(model.score(X_test, y_test))
 
-filename = './ml_server/Prediction_Models/logistic_reg_model.sav'
+filename = './ml_server/models/logistic_reg_model.sav'
 pickle.dump(model, open(filename, 'wb'))

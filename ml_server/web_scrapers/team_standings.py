@@ -20,7 +20,7 @@ def scrape_team_standings(season_years):
         rows = table.findChildren('tr', recursive=False)
 
         csv_file = open(
-            f'./ml_server/datasets/raw/teamStandings_{season_year-1}_{season_year}.csv', 'w')
+            f'./ml_server/datasets/raw/team_standings_{season_year-1}_{season_year}.csv', 'w')
         csv_writer = csv.writer(csv_file)
 
         csv_writer.writerow(['Team Name', 'Wins', 'Losses'])

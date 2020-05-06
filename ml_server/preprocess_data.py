@@ -3,7 +3,7 @@ from collections import defaultdict
 
 # 1. Delete row if there is a null value
 
-team_standings_file = 'teamStandings_2016_2017'
+team_standings_file = 'team_standings_2016_2017'
 games_file = 'games_2017_2018'
 
 team_standings_df = pd.read_csv(f'./ml_server/datasets/raw/{team_standings_file}.csv')

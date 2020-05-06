@@ -18,7 +18,7 @@ for seasonYear in range(2016, 2020):
     rows = table.find_all('tr')
 
     csv_file = open(
-        f'./ml_server/datasets/playerStats/playerStats_{seasonYear-1}_{seasonYear}.csv', 'w')
+        f'./ml_server/datasets/player_stats/player_stats_{seasonYear-1}_{seasonYear}.csv', 'w')
     csvWriter = csv.writer(csv_file)
 
     csvWriter.writerow(['Name', 'Pos', 'Age', 'Tm', 'G', 'GS', 'MP',
