@@ -1,60 +1,45 @@
 # https://www.basketball-reference.com/leagues/NBA_2019_games-october.html
 
-from bs4 import BeautifulSoup
-import requests
 import csv
-from selenium import webdriver
 import time
+import pandas as pd
+from bs4 import BeautifulSoup
+from selenium import webdriver
 
-months = ['october', 'november', 'december', 'january',
-          'february', 'march', 'april', 'may', 'june']
 
+def scrape_games(season_years, months):
+    for season_year in season_years:
+        csv_file = open(
+            f'./ml_server/datasets/raw/games_{season_year-1}_{season_year}.csv', 'w')
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(['Home', 'Home Points', 'Visitor', 'Visitor Points', ])
 
-for seasonYear in range(2016, 2020):
-    csv_file = open(
-        f'./ml_server/datasets/games/games_{seasonYear-1}_{seasonYear}.csv', 'w')
-    csvWriter = csv.writer(csv_file)
-    csvWriter.writerow(['Date', 'Start Time', 'Home', 'Home Points',
-                        'Visitor', 'Visitor Points', 'Winner',
-                        'Attendance'])
+        for month in months:
+            url = f'https://www.basketball-reference.com/leagues/NBA_{season_year}_games-{month}.html'
 
-    for month in months:
-        url = f'https://www.basketball-reference.com/leagues/NBA_{seasonYear}_games-{month}.html'
+            driver = webdriver.Chrome()
+            driver.get(url)
+            time.sleep(5)
+            res = driver.execute_script(
+                "return document.documentElement.outerHTML")
+            driver.quit()
 
-        driver = webdriver.Chrome()
-        driver.get(url)
-        time.sleep(5)
-        res = driver.execute_script(
-            "return document.documentElement.outerHTML")
-        driver.quit()
+            soup = BeautifulSoup(res, 'lxml')
 
-        soup = BeautifulSoup(res, 'lxml')
+            table = soup.find('div', id='div_schedule').table.tbody
 
-        table = soup.find('div', id='div_schedule').table.tbody
+            rows = table.find_all('tr')
 
-        rows = table.find_all('tr')
+            for row in rows:
 
-        for row in rows:
+                try:
+                    tds = row.find_all('td')
 
-            try:
-                ths = row.find_all('th')
-                tds = row.find_all('td')
-                date = ths[0].a.text
-                startTime = tds[0].text
-                visitorName = tds[1].a.text
-                visitorPts = tds[2].text
-                homeName = tds[3].a.text
-                homePts = tds[4].text
-                attendance = tds[7].text
+                    visitor_name = tds[1].a.text
+                    visitor_pts = tds[2].text
+                    home_name = tds[3].a.text
+                    home_pts = tds[4].text
+                except:
+                    continue
 
-                if int(homePts) > int(visitorPts):
-                    winner = homeName
-                else:
-                    winner = visitorName
-
-            except Exception as e:
-                continue
-
-            csvWriter.writerow([date, startTime, homeName, homePts,
-                                visitorName, visitorPts, winner,
-                                attendance])
+                csv_writer.writerow([home_name, home_pts, visitor_name, visitor_pts])

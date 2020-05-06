@@ -4,8 +4,6 @@ import csv
 from selenium import webdriver
 import time
 
-# Stats for Lebron James
-
 for seasonYear in range(2016, 2020):
     url = f'https://www.basketball-reference.com/leagues/NBA_{seasonYear}_totals.html'
     driver = webdriver.Chrome()
