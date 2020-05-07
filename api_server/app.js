@@ -8,6 +8,7 @@ const gameRoutes = require("./api/routes/games");
 const locationRoutes = require("./api/routes/locations");
 const playerRoutes = require("./api/routes/players");
 const teamRoutes = require("./api/routes/teams");
+const predictRoutes = require("./api/routes/predict");
 
 const app = express();
 
@@ -16,10 +17,7 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
@@ -34,6 +32,7 @@ app.use("/games", gameRoutes);
 app.use("/locations", locationRoutes);
 app.use("/players", playerRoutes);
 app.use("/teams", teamRoutes);
+app.use("/predict", predictRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Route Not Found");

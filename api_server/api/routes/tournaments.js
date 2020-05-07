@@ -8,19 +8,11 @@ const TournamentsController = require("../controllers/tournaments");
 
 router.get("/", TournamentsController.getAllTournaments);
 
-router.post(
-  "/",
-  authenticate,
-  authorize([Role.Admin, Role.Owner]),
-  TournamentsController.postTournament
-);
+router.post("/", authenticate, authorize([Role.Admin, Role.Owner]), TournamentsController.postTournament);
 
 router.get("/:tournamentId", TournamentsController.getTournament);
 
-router.get(
-  "/:tournamentId/divisions",
-  TournamentsController.getDivisionsInTournament
-);
+router.get("/:tournamentId/divisions", TournamentsController.getDivisionsInTournament);
 
 router.patch(
   "/:tournamentId",
