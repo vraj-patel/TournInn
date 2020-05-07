@@ -8,7 +8,7 @@ from collections import defaultdict
 team_standings_file = 'team_standings_2016_2017'
 games_file = 'games_2017_2018'
 
-team_standings_df = pd.read_csv(f'./ml_server/datasets/raw/{team_standings_file}.csv')
+team_standings_df = pd.read_csv(f'./ml_server/datasets/raw/db_{team_standings_file}.csv')
 games_df = pd.read_csv(f'./ml_server/datasets/raw/db_{games_file}.csv')
 
 missing_values = team_standings_df.isnull().sum().sum()
