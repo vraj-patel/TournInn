@@ -55,8 +55,7 @@ exports.getDivision = (req, res, next) => {
 };
 
 exports.getTeamsInDivision = (req, res, next) => {
-  const query =
-    "SELECT * FROM teams WHERE divisionId = " + req.params.divisionId;
+  const query = "SELECT * FROM teams WHERE divisionId = " + req.params.divisionId;
   mysqlConnection.query(query, (err, rows, fields) => {
     if (err) {
       console.log("Getting teams from division failed.");

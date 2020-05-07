@@ -9,7 +9,7 @@ team_standings_file = 'team_standings_2016_2017'
 games_file = 'games_2017_2018'
 
 team_standings_df = pd.read_csv(f'./ml_server/datasets/raw/{team_standings_file}.csv')
-games_df = pd.read_csv(f'./ml_server/datasets/raw/{games_file}.csv')
+games_df = pd.read_csv(f'./ml_server/datasets/raw/db_{games_file}.csv')
 
 missing_values = team_standings_df.isnull().sum().sum()
 if missing_values > 0:
@@ -45,21 +45,27 @@ csv_writer = csv.writer(processed_game_csv)
 csv_writer.writerow(['Team 1', 'Team 2', 'Team 1 Win %', 'Team 2 Win %', 'Team 1 At Home', 'Team 1 Won'])
 
 for row in games_df.itertuples():
+    team1 = row._1
+    team1_pts = row._2
+    team2 = row._3
+    team2_pts = row._4
+    home_team = row._5
 
     # 3.1
     rnd = random.randint(0, 1)
     if rnd == 0:
-        team1_at_home = 0
-        team1 = row.Visitor
-        team1_pts = row._4
-        team2 = row.Home
-        team2_pts = row._2
-    elif rnd == 1:
+        team1_temp = team1
+        team1_pts_temp = team1_pts
+
+        team1 = team2
+        team1_pts = team2_pts
+        team2 = team1_temp
+        team2_pts = team1_pts_temp
+
+    if home_team == team1:
         team1_at_home = 1
-        team1 = row.Home
-        team1_pts = row._2
-        team2 = row.Visitor
-        team2_pts = row._4
+    else:
+        team1_at_home = 0
 
     # 3.2
     if team1_pts > team2_pts:
