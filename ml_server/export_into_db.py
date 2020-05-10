@@ -40,16 +40,20 @@ def export_team_standings():
     csv_data = pd.read_csv('./ml_server/datasets/raw/team_standings_2016_2017.csv')
     seasonId = 2
     for row in csv_data.itertuples():
+        query = f'SELECT id FROM teams WHERE name = "{row._1}"'
+        cursor.execute(query)
+        teamid = cursor.fetchone()[0]
+
         query = f"""
             INSERT INTO TournInn.teamStandings
-            (teamRank, teamName, wins, losses, seasonId)
+            (teamRank, teamName, wins, losses, seasonId, teamId)
             VALUES
-            ({row.Index + 1}, '{row._1}', {row.Wins}, {row.Losses}, {seasonId})
+            ({row.Index + 1}, '{row._1}', {row.Wins}, {row.Losses}, {seasonId}, {teamid})
         """
         cursor.execute(query)
 
 
-export_games()
+# export_games()
 export_team_standings()
 
 cursor.close()

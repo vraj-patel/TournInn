@@ -5,7 +5,7 @@ import pickle
 
 data = prepare_data.get_training_data()
 
-X_train, X_test, y_train, y_test = train_test_split(data['X'], data['y'], train_size=0.3)
+X_train, X_test, y_train, y_test = train_test_split(data['X'], data['y'], train_size=0.7)
 model = LogisticRegression().fit(X_train, y_train)
 
 print(model.score(X_test, y_test))
