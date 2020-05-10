@@ -4,25 +4,29 @@ const mysqlConnection = require("../../connection");
 getWinPerc = (teamId, tournId, seasonId) => {
   query = `
   SELECT 
-    SUM(CASE WHEN (winnerId = ${teamId} AND tournamentId = ${tournId} AND seasonId=${seasonId}) then 1 end) as teamWins, 
-    SUM(CASE when ((team1Id = ${teamId} OR team2Id=${teamId}) AND tournamentId = ${tournId} AND seasonId=${seasonId}) then 1 end) as totalGames 
+    SUM(CASE WHEN (winnerId = ? AND tournamentId = ? AND seasonId= ?) then 1 end) as teamWins, 
+    SUM(CASE when ((team1Id = ? OR team2Id= ?) AND tournamentId = ? AND seasonId= ?) then 1 end) as totalGames 
   FROM games;
-  SELECT wins, losses FROM teamStandings WHERE teamId = ${teamId};
+  SELECT wins, losses FROM teamStandings WHERE teamId = ?;
   `;
 
   return new Promise((resolve, reject) => {
-    mysqlConnection.query(query, (err, rows, fields) => {
-      if (err) throw err;
-      rows = JSON.parse(JSON.stringify(rows));
-      result1 = rows[0];
-      result2 = rows[1];
+    mysqlConnection.query(
+      query,
+      [teamId, tournId, seasonId, teamId, teamId, tournId, seasonId, teamId],
+      (err, rows, fields) => {
+        if (err) throw err;
+        rows = JSON.parse(JSON.stringify(rows));
+        result1 = rows[0];
+        result2 = rows[1];
 
-      currWinPerc = result1[0].teamWins / result1[0].totalGames;
-      prevWinPerc = result2[0].wins / (result2[0].wins + result2[0].losses);
-      winPerc = (prevWinPerc + 2 * currWinPerc) / 3;
+        currWinPerc = result1[0].teamWins / result1[0].totalGames;
+        prevWinPerc = result2[0].wins / (result2[0].wins + result2[0].losses);
+        winPerc = (prevWinPerc + 2 * currWinPerc) / 3;
 
-      resolve(winPerc);
-    });
+        resolve(winPerc);
+      }
+    );
   });
 };
 
