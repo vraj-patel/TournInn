@@ -44,5 +44,3 @@ exports.predictGame = (req, res, next) => {
     });
   });
 };
-
-//
