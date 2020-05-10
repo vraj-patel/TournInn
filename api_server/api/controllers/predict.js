@@ -4,8 +4,8 @@ const mysqlConnection = require("../../connection");
 getWinPerc = (teamId, tournId, seasonId) => {
   query = `
   SELECT 
-    SUM(CASE WHEN (winnerId = ? AND tournamentId = ? AND seasonId= ?) then 1 end) as teamWins, 
-    SUM(CASE when ((team1Id = ? OR team2Id= ?) AND tournamentId = ? AND seasonId= ?) then 1 end) as totalGames 
+    SUM(CASE WHEN (winnerId = ? AND tournamentId = ? AND seasonId = ?) then 1 end) as teamWins, 
+    SUM(CASE when ((team1Id = ? OR team2Id = ?) AND tournamentId = ? AND seasonId= ?) then 1 end) as totalGames 
   FROM games;
   SELECT wins, losses FROM teamStandings WHERE teamId = ?;
   `;
