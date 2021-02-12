@@ -40,8 +40,8 @@ exports.postDivision = (req, res, next) => {
 };
 
 exports.getDivision = (req, res, next) => {
-  const query = "SELECT * FROM divisions WHERE id = " + req.params.divisionId;
-  mysqlConnection.query(query, (err, rows, fields) => {
+  const query = "SELECT * FROM divisions WHERE id = ?";
+  mysqlConnection.query(query, [req.params.divisionId], (err, rows, fields) => {
     if (err) {
       console.log("Getting division failed.");
       res.status(500).json({
@@ -70,9 +70,9 @@ exports.getTeamsInDivision = (req, res, next) => {
 };
 
 exports.patchDivision = (req, res, next) => {
-  const query = "UPDATE divisions SET ? where id = " + req.params.divisionId;
+  const query = "UPDATE divisions SET ? where id = ?";
 
-  mysqlConnection.query(query, req.body, (err, result) => {
+  mysqlConnection.query(query, [req.body, req.params.divisionId], (err, result) => {
     if (err) {
       console.log("Patching division failed.");
       res.status(500).json({
