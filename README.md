@@ -1,6 +1,6 @@
 # TournInn
 
-A RESTful API for completely managing a tournament of any sport and predicting new games.
+A RESTful API for completely managing a tournament of any sport and predicting the results of new games.
 
 ## TournInn API (api_server)
 
