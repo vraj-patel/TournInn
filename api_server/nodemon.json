@@ -1,5 +1,6 @@
 {
   "env": {
-    "JWT_KEY": "somekey"
+    "JWT_KEY": "somekey",
+    "DB_PASSWORD": "whatIsLife42?"
   }
 }
