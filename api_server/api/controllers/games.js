@@ -22,13 +22,15 @@ exports.postGame = (req, res, next) => {
     sport: req.body.sport,
     startTime: req.body.startTime,
     endTime: req.body.endTime,
-    winner: req.body.winner,
+    winnerId: req.body.winnerId,
     type: req.body.type,
     team1Id: req.body.team1Id,
     team2Id: req.body.team2Id,
     team1Score: req.body.team1Score,
     team2Score: req.body.team2Score,
     locationId: req.body.locationId,
+    tournamentId: req.body.tournamentId,
+    seasonId: req.body.seasonId
   });
   const query = "INSERT INTO games SET ?";
 
