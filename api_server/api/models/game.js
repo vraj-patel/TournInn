@@ -13,6 +13,7 @@ class Game {
     this.locationId = game.locationId;
     this.tournamentId = game.tournamentId;
     this.seasonId = game.seasonId;
+    this.homeTeamId = game.homeTeamId;
   }
 }
 

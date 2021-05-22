@@ -69,3 +69,12 @@ CREATE TABLE TournInn.games (
     FOREIGN KEY (locationId) REFERENCES TournInn.locations(id),
     FOREIGN KEY (tournamentId) REFERENCES TournInn.tournaments(id)
 );
+
+CREATE TABLE TournInn.teamStandings (
+    teamRank INT NOT NULL,
+    teamName VARCHAR(50),
+    wins INT,
+    losses INT,
+    seasonId INT,
+    teamId INT
+);
