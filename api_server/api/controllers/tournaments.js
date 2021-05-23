@@ -41,6 +41,7 @@ exports.postTournament = (req, res, next) => {
       console.log("Successfully inserted new tournament.");
       res.status(201).json({
         message: "Successfully inserted new tournament.",
+        id: result.insertId
       });
     }
   });

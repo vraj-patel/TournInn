@@ -43,6 +43,7 @@ exports.signUp = (req, res, next) => {
               console.log("Successfully inserted new user.");
               res.status(201).json({
                 message: "Successfully inserted new user.",
+                id: result.insertId
               });
             }
           });
@@ -80,7 +81,7 @@ exports.login = (req, res, next) => {
               id: rows[0].id,
               role: rows[0].role,
             },
-            process.env.JWT_KEY,
+            process.env.JWT_KEY || require('../../nodemon.json').env.JWT_KEY,
             {
               expiresIn: "1h",
             }
