@@ -34,6 +34,7 @@ exports.postPlayer = (req, res, next) => {
       console.log("Successfully inserted new player.");
       res.status(201).json({
         message: "Successfully inserted new player.",
+        id: result.insertId
       });
     }
   });

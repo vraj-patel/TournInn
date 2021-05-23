@@ -34,6 +34,7 @@ exports.postTeam = (req, res, next) => {
       console.log("Successfully inserted new team.");
       res.status(201).json({
         message: "Successfully inserted new team.",
+        id: result.insertId
       });
     }
   });
@@ -99,7 +100,7 @@ exports.deleteTeam = (req, res, next) => {
     } else {
       console.log("Successfully deleted team.");
       res.status(200).json({
-        message: "Successfully deleted tournament.",
+        message: "Successfully deleted team.",
       });
     }
   });

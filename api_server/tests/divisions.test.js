@@ -38,6 +38,7 @@ describe("testing division routes", () => {
       }
     ]);
   });
+  
   it(`PATCH /divisions/${newId}`, async () => {
     newDivisionObj = {
       name: 'test division 2',
