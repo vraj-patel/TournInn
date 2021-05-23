@@ -34,6 +34,7 @@ exports.postLocation = (req, res, next) => {
       console.log("Successfully inserted new location.");
       res.status(201).json({
         message: "Successfully inserted new location.",
+        id: result.insertId
       });
     }
   });

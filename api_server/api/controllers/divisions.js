@@ -34,6 +34,7 @@ exports.postDivision = (req, res, next) => {
       console.log("Successfully inserted new division.");
       res.status(201).json({
         message: "Successfully inserted new division.",
+        id: result.insertId
       });
     }
   });

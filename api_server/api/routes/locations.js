@@ -15,7 +15,7 @@ router.post(
   LocationsController.postLocation
 );
 
-router.get("/:locationId");
+router.get("/:locationId", LocationsController.getLocation);
 
 router.patch(
   "/:locationId",

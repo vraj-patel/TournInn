@@ -44,6 +44,7 @@ exports.postGame = (req, res, next) => {
       console.log("Successfully inserted new game.");
       res.status(201).json({
         message: "Successfully inserted new game.",
+        id: result.insertId
       });
     }
   });

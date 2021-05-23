@@ -64,9 +64,9 @@ def export_team_standings():
         """
         cursor.execute(query)
 
-export_teams()
-export_games()
-export_team_standings()
+# export_teams()
+# export_games()
+# export_team_standings()
 
 cursor.close()
 cnx.close()
