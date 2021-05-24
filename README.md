@@ -2,6 +2,27 @@
 
 A RESTful API for completely managing a tournament of any sport and predicting the results of new games.
 
+## Setup
+
+1. Clone project
+2. run `cd api_server & npm install`
+3. Start mysql server and create TournInn DB
+4. Copy-paste queries from createTables.sql to define schemas
+5. Create and place nodemon.json in the /api_server directory and populate it as follows:
+
+```json
+{
+  "env": {
+    "JWT_KEY": "CHOOSE YOUR KEY",
+    "DB_PASSWORD": "YOUR MYSQL PASSWORD",
+    "AUTH_TOKEN": "LOGIN AS OWNER USING ENDPOINT AND PASTE AUTH_TOKEN HERE"
+  },
+  "test": {
+    "USER_PASSWORD": "CHOOSE YOUR PASSWORD FOR TEST USER"
+  }
+}
+```
+
 ## TournInn API (api_server)
 
 Installation:
