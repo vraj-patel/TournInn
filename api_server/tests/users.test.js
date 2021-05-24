@@ -8,7 +8,7 @@ describe("testing tournament routes", () => {
 
   const userObj = new User({
     email: 'test@test.com',
-    password: require('../nodemon.json').test.USER_PASSWORD,
+    password: require('../nodemon.json').env.TEST_USER_PASSWORD,
     role: 'admin'
   });
   

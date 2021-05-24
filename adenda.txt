@@ -1,0 +1,10 @@
+1. README + Summary
+2. App.js
+3. Tests
+4. Project structure
+5. Users (RBAC), Divisions
+6. Tables Structure
+7. Predict
+
+8. Collect Data / Web Scrapers
+9. 

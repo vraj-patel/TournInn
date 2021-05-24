@@ -8,17 +8,15 @@ A RESTful API for completely managing a tournament of any sport and predicting t
 2. run `cd api_server & npm install`
 3. Start mysql server and create TournInn DB
 4. Copy-paste queries from createTables.sql to define schemas
-5. Create and place nodemon.json in the /api_server directory and populate it as follows:
+5. Create and place nodemon.json (environment variable file) in the /api_server directory and populate it as follows:
 
 ```json
 {
   "env": {
     "JWT_KEY": "CHOOSE YOUR KEY",
     "DB_PASSWORD": "YOUR MYSQL PASSWORD",
-    "AUTH_TOKEN": "LOGIN AS OWNER USING ENDPOINT AND PASTE AUTH_TOKEN HERE"
-  },
-  "test": {
-    "USER_PASSWORD": "CHOOSE YOUR PASSWORD FOR TEST USER"
+    "AUTH_TOKEN": "LOGIN AS OWNER USING ENDPOINT AND PASTE AUTH_TOKEN HERE",
+    "TEST_USER_PASSWORD": "CHOOSE YOUR PASSWORD FOR TEST USER"
   }
 }
 ```
