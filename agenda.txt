@@ -1,5 +1,5 @@
 1. README + Summary
-2. App.js
+2. App.js / SQL Tables
 3. Tests
 4. Project structure
 5. Users (RBAC), Divisions
