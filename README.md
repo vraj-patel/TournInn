@@ -1,6 +1,6 @@
 # TournInn
 
-A API for completely managing a tournament of any sport and predicting the results of new games.
+An API for completely managing a tournament of any sport and predicting the results of new games.
 
 ## Setup
 
